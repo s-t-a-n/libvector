@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 17:14:23 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/06 18:17:41 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/08/07 16:23:23 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <sys/types.h>
-#include <stddef.h>
+# include <sys/types.h>
+# include <stddef.h>
 
 # ifndef S_C1_STRUCT
 #  define S_C1_STRUCT	NULL

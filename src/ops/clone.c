@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 19:51:57 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/06 20:19:25 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/08/07 16:18:47 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		clone(t_vector *dst, t_vector *src, t_sizes size)
 {
-	void	**tmp_mem;
-	size_t cap;
+	void		**tmp_mem;
+	size_t		cap;
 
 	tmp_mem = dst->mem;
 	ft_memcpy(dst, src, sizeof(t_vector));
@@ -34,7 +34,7 @@ static void		clone(t_vector *dst, t_vector *src, t_sizes size)
 
 void			*vec_clone(void **root, t_sizes size, void *obj)
 {
-	void	**new_root;
+	void		**new_root;
 
 	if (!root || !*root)
 		return (NULL);

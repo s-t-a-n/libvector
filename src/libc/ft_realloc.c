@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   peekback.c                                         :+:    :+:            */
+/*   ft_realloc.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/07 15:59:48 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:19:27 by sverschu      ########   odam.nl         */
+/*   Created: 2020/08/07 14:52:23 by sverschu      #+#    #+#                 */
+/*   Updated: 2020/08/07 15:11:14 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "vector_internal.h"
 
-void			*vec_peekback(void **root, t_sizes size, void *obj)
+void	*ft_realloc(void *ptr, size_t size, size_t new_size)
 {
-	t_vector	*vec;
+	void *nptr;
 
-	vec = (t_vector *)*root;
-	(void)size;
-	(void)obj;
-	if (vec->size > 0)
-		return (vec->mem[vec->back]);
+	if (!ptr)
+		return (malloc(new_size));
+	else if (ptr && new_size == 0)
+	{
+		free(ptr);
+		return (malloc(1));
+	}
 	else
-		return (NULL);
+	{
+		nptr = malloc(new_size);
+		if (nptr)
+		{
+			ft_memcpy(nptr, ptr, size);
+			free(ptr);
+		}
+		return (nptr);
+	}
 }

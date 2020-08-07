@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   peekback.c                                         :+:    :+:            */
+/*   resize.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/07 15:59:48 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:19:27 by sverschu      ########   odam.nl         */
+/*   Created: 2020/08/07 14:49:11 by sverschu      #+#    #+#                 */
+/*   Updated: 2020/08/07 16:22:20 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_internal.h"
 
-void			*vec_peekback(void **root, t_sizes size, void *obj)
+void	*resize(t_vector *vec, size_t cap, size_t new_cap)
 {
-	t_vector	*vec;
+	void	*nmem;
 
-	vec = (t_vector *)*root;
-	(void)size;
-	(void)obj;
-	if (vec->size > 0)
-		return (vec->mem[vec->back]);
-	else
-		return (NULL);
+	nmem = ft_realloc(vec->mem, sizeof(void *) * cap, sizeof(void *) * new_cap);
+	if (nmem)
+	{
+		vec->mem = nmem;
+		vec->cap = new_cap;
+	}
+	return (nmem);
 }

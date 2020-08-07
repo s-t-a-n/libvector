@@ -6,11 +6,13 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 18:15:53 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/06 19:02:24 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/08/07 14:38:16 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_internal.h"
+
+#include <stdio.h>
 
 static void		*unroll_and_free(void **root, size_t cap, size_t halt)
 {
@@ -33,7 +35,7 @@ static void		*initialize(void **root, t_sizes size, size_t cap)
 	t_vector *vec;
 
 	vec = (t_vector *)*root;
-	vec->mem = ft_calloc(sizeof(void *), vec->cap);
+	vec->mem = ft_calloc(cap, sizeof(void *));
 	if (vec->mem)
 	{
 		vec->cap = cap;
@@ -42,7 +44,7 @@ static void		*initialize(void **root, t_sizes size, size_t cap)
 		vec->back = 0;
 		while (cap > 0)
 		{
-			vec->mem[cap - 1] = ft_calloc(size, 1);
+			vec->mem[cap - 1] = ft_calloc(1, size);
 			if (!vec->mem[cap - 1])
 				return (unroll_and_free(root, vec->cap, cap));
 			cap--;
@@ -65,7 +67,7 @@ void			*vec_create(void **root, t_sizes size, void *obj)
 	}
 	else
 	{
-		*root = ft_calloc(sizeof(t_vector), 1);
+		*root = ft_calloc(1, sizeof(t_vector));
 		if (*root)
 			return (initialize(root, size, *(size_t *)obj));
 		else

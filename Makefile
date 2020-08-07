@@ -6,7 +6,7 @@
 #    By: sverschu <sverschu@student.codam.n>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/20 13:11:59 by sverschu      #+#    #+#                  #
-#    Updated: 2020/08/07 16:08:44 by sverschu      ########   odam.nl          #
+#    Updated: 2020/08/07 17:17:25 by sverschu      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,9 +68,10 @@ CAT=cat
 CC = clang
 LD = ar
 
-# compile flags
-CC_FLAGS =			-Wall -Wextra -Werror
-LD_FLAGS =  		-rcs
+# compile, linker and test flags
+CC_FLAGS =	-Wall -Wextra -Werror
+LD_FLAGS =  -rcs
+T_FLAGS = 	-lcriterion
 
 # debugging or optimilization flags
 CC_OPT_FLAGS = -O3															\
@@ -148,14 +149,11 @@ $(OBJ): $(OBJ_D)/%.o: $(SRC_D)/%.c
 clean:
 	@$(RM) $(OBJ)
 	@$(RM) -r $(NAME).dSYM
+	@$(RM) *.testbin
 	@$(RM) -r $(OBJ_D)
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(RM) bonus
-
-bonus: $(NAME)
-	@touch bonus
 
 lre:
 	@$(RM) $(NAME)
@@ -168,4 +166,23 @@ norm:
 
 re: fclean all
 
-.PHONY = all clean fclean re bonus
+basics_crit_test: TEST='basics_crit_t'
+basics_crit_test: $(NAME)
+	@$(ECHO) "Compiling $(TEST).c..." 2>$(CC_LOG) || touch $(CC_ERROR)
+	@$(CC) $(CC_FLAGS) -I$(INC_D) -o $(TEST).testbin tests/$(TEST).c $(NAME) $(T_FLAGS)
+	@if test -e $(CC_ERROR); then                                           \
+        $(ECHO) "$(ERROR_STRING)\n" && $(CAT) $(CC_LOG);					\
+    elif test -s $(CC_LOG); then                                            \
+        $(ECHO) "$(WARN_STRING)\n" && $(CAT) $(CC_LOG);                     \
+    else                                                                    \
+        $(ECHO) "$(OK_STRING)\n";                                           \
+    fi
+	@$(ECHO) "Running $(TEST)...\n"
+	@$(DBG) ./$(TEST).testbin $(CRIT_FLAGS) && $(RM) -f $(TEST).testbin && $(RM) -rf $(TEST).dSYM 2>$(CC_LOG)
+	@# output removed; criterion is clear enough
+	@$(RM) -f $(CC_LOG) $(CC_ERROR)
+
+tests: $(NAME)
+	@make basics_crit_test
+
+.PHONY = all clean fclean re

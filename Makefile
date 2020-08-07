@@ -6,7 +6,7 @@
 #    By: sverschu <sverschu@student.codam.n>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/20 13:11:59 by sverschu      #+#    #+#                  #
-#    Updated: 2020/08/06 20:00:16 by sverschu      ########   odam.nl          #
+#    Updated: 2020/08/07 16:08:44 by sverschu      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,12 @@ SRC =	$(SRC_D)/vector.c													\
 		$(SRC_D)/ops/popback.c												\
 		$(SRC_D)/ops/popat.c												\
 		$(SRC_D)/ops/size.c													\
+		$(SRC_D)/generic/resize.c											\
 		$(SRC_D)/libc/ft_memset.c											\
 		$(SRC_D)/libc/ft_calloc.c											\
 		$(SRC_D)/libc/ft_memcpy.c											\
+		$(SRC_D)/libc/ft_memmove.c											\
+		$(SRC_D)/libc/ft_realloc.c											\
 
 INC =	$(INC_D)/vector.h													\
 		$(INC_D)/vector_internal.h											\
@@ -127,6 +130,7 @@ $(OBJ_D):
 	@mkdir -p $(OBJ_D)
 	@mkdir -p $(OBJ_D)/ops
 	@mkdir -p $(OBJ_D)/libc
+	@mkdir -p $(OBJ_D)/generic
 
 $(OBJ): $(OBJ_D)/%.o: $(SRC_D)/%.c
 	@$(ECHO) "Compiling $<..."

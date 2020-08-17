@@ -12,7 +12,7 @@
 
 #include "vector_internal.h"
 
-void			*vec_popback(void **root, t_sizes size, void *obj)
+void			*vec_popback(void **root, size_t n, void *obj)
 {
 	t_vector	*vec;
 
@@ -20,11 +20,12 @@ void			*vec_popback(void **root, t_sizes size, void *obj)
 	if (vec->size > 0)
 	{
 		if (vec->c_free)
-			vec->c_free(vec->mem[vec->back], size, obj);
+			vec->c_free(vec->mem[vec->back], obj);
 		else
 			free(vec->mem[vec->back]);
 		vec->back--;
 		vec->size--;
 	}
 	return (NULL);
+	(void)n;
 }

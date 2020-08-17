@@ -12,15 +12,12 @@
 
 #include "vector_internal.h"
 
-void			*vec_peekfront(void **root, t_sizes size, void *obj)
+void			*vec_peekfront(void **root, size_t n, void *obj)
 {
 	t_vector *vec;
 
 	vec = (t_vector *)*root;
-	(void)size;
+	return (vec->size > 0 ? vec->mem[vec->front] : NULL);
+	(void)n;
 	(void)obj;
-	if (vec->size > 0)
-		return (vec->mem[vec->front]);
-	else
-		return (NULL);
 }

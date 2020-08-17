@@ -12,7 +12,7 @@
 
 #include "vector_internal.h"
 
-void			*vec_pushfront(void **root, t_sizes size, void *obj)
+void			*vec_pushfront(void **root, size_t n, void *obj)
 {
 	t_vector *vec;
 
@@ -22,15 +22,16 @@ void			*vec_pushfront(void **root, t_sizes size, void *obj)
 	if (vec->front > 0)
 	{
 		vec->front--;
-		ft_memcpy(vec->mem[vec->front], obj, size);
+		ft_memcpy(vec->mem[vec->front], obj, vec->elemsize);
 		vec->size++;
 	}
 	else
 	{
 		ft_memmove(vec->mem[vec->front + 1], vec->mem[vec->front],
-				vec->size * size);
-		ft_memcpy(vec->mem[vec->front], obj, size);
+				vec->size * vec->elemsize);
+		ft_memcpy(vec->mem[vec->front], obj, vec->elemsize);
 		vec->size++;
 	}
 	return (root);
+	(void)n;
 }

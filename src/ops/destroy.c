@@ -12,7 +12,7 @@
 
 #include "vector_internal.h"
 
-void	*vec_destroy(void **root, t_sizes size, void *obj)
+void	*vec_destroy(void **root, size_t n, void *obj)
 {
 	t_vector *vec;
 
@@ -22,7 +22,7 @@ void	*vec_destroy(void **root, t_sizes size, void *obj)
 	while (vec->size > 0 && vec->front <= vec->back)
 	{
 		if (vec->c_free)
-			vec->c_free(vec->mem[vec->front], size, obj);
+			vec->c_free(vec->mem[vec->front], obj);
 		else
 			free(vec->mem[vec->front]);
 		vec->front++;
@@ -31,4 +31,5 @@ void	*vec_destroy(void **root, t_sizes size, void *obj)
 	free(*root);
 	*root = NULL;
 	return (NULL);
+	(void)n;
 }

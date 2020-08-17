@@ -52,6 +52,7 @@ typedef enum	e_ops
 	E_OPS_END
 }				t_ops;
 
+/*
 typedef enum	e_sizes
 {
 	S_CHAR = sizeof(char),
@@ -65,7 +66,8 @@ typedef enum	e_sizes
 	S_C2 = sizeof(S_C2_STRUCT),
 	S_C3 = sizeof(S_C3_STRUCT),
 }				t_sizes;
+*/
 
-void	*vector(void **root, t_ops op, t_sizes size, void *obj);
+void	*vector(void **root, t_ops op, size_t n, void *obj);
 
 #endif

@@ -16,17 +16,17 @@
 
 # include <assert.h>
 
-void		*vector(void **root, t_ops op, t_sizes size, void *obj)
+void		*vector(void **root, t_ops op, size_t n, void *obj)
 {
 	assert(dispatch(op) != NULL);
-	return (dispatch(op)(root, size, obj));
+	return (dispatch(op)(root, n, obj));
 }
 
 #else
 
-void		*vector(void **root, t_ops op, t_sizes size, void *obj)
+void		*vector(void **root, t_ops op, size_t n, void *obj)
 {
-	return (dispatch(op)(root, size, obj));
+	return (dispatch(op)(root, n, obj));
 }
 
 #endif

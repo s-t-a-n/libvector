@@ -12,12 +12,12 @@
 
 #include "vector_internal.h"
 
-void			*vec_size(void **root, t_sizes size, void *obj)
+void			*vec_size(void **root, size_t n, void *obj)
 {
 	t_vector *vec;
 
 	vec = (t_vector *)*root;
-	(void)obj;
-	(void)size;
 	return (&vec->size);
+	(void)obj;
+	(void)n;
 }

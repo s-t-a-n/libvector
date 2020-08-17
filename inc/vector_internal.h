@@ -23,27 +23,28 @@ typedef struct	s_vector
 	size_t		size;
 	size_t		front;
 	size_t		back;
+	size_t		elemsize;
 	void		**mem;
-	void		(*c_free)(void *ptr, size_t size, void *obj);
+	void		(*c_free)(void *ptr, void *obj);
 	void		(*c_clone)(void *dst, void *src, size_t size);
 }				t_vector;
 
-typedef void	*(*t_jumpfunc)(void **root, t_sizes size, void *obj);
+typedef void	*(*t_jumpfunc)(void **root, size_t n, void *obj);
 t_jumpfunc		dispatch(t_ops op);
 
-void			*vec_create(void **root, t_sizes size, void *obj);
-void			*vec_destroy(void **root, t_sizes size, void *obj);
-void			*vec_clone(void **root, t_sizes size, void *obj);
-void			*vec_pushfront(void **root, t_sizes size, void *obj);
-void			*vec_pushback(void **root, t_sizes size, void *obj);
-void			*vec_pushat(void **root, t_sizes size, void *obj);
-void			*vec_peekfront(void **root, t_sizes size, void *obj);
-void			*vec_peekback(void **root, t_sizes size, void *obj);
-void			*vec_peekat(void **root, t_sizes size, void *obj);
-void			*vec_popfront(void **root, t_sizes size, void *obj);
-void			*vec_popback(void **root, t_sizes size, void *obj);
-void			*vec_popat(void **root, t_sizes size, void *obj);
-void			*vec_size(void **root, t_sizes size, void *obj);
+void			*vec_create(void **root, size_t n, void *obj);
+void			*vec_destroy(void **root, size_t n, void *obj);
+void			*vec_clone(void **root, size_t n, void *obj);
+void			*vec_pushfront(void **root, size_t n, void *obj);
+void			*vec_pushback(void **root, size_t n, void *obj);
+void			*vec_pushat(void **root, size_t n, void *obj);
+void			*vec_peekfront(void **root, size_t n, void *obj);
+void			*vec_peekback(void **root, size_t n, void *obj);
+void			*vec_peekat(void **root, size_t n, void *obj);
+void			*vec_popfront(void **root, size_t n, void *obj);
+void			*vec_popback(void **root, size_t n, void *obj);
+void			*vec_popat(void **root, size_t n, void *obj);
+void			*vec_size(void **root, size_t n, void *obj);
 
 void			*resize(t_vector *vec, size_t cap, size_t new_cap);
 

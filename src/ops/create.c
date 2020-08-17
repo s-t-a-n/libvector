@@ -30,7 +30,7 @@ static void		*unroll_and_free(void **root, size_t cap, size_t halt)
 	return (root);
 }
 
-static void		*initialize(void **root, t_sizes size, size_t cap)
+static void		*initialize(void **root, size_t size, size_t cap)
 {
 	t_vector *vec;
 
@@ -42,6 +42,7 @@ static void		*initialize(void **root, t_sizes size, size_t cap)
 		vec->size = 0;
 		vec->front = 0;
 		vec->back = 0;
+		vec->elemsize = size;
 		while (cap > 0)
 		{
 			vec->mem[cap - 1] = ft_calloc(1, size);
@@ -59,18 +60,15 @@ static void		*initialize(void **root, t_sizes size, size_t cap)
 	}
 }
 
-void			*vec_create(void **root, t_sizes size, void *obj)
+void			*vec_create(void **root, size_t size, void *obj)
 {
-	if (!root || !obj || *(size_t *)obj <= 0)
+	if (!root || size <= 0 || !obj || *(size_t *)obj <= 0)
 	{
 		return (NULL);
 	}
 	else
 	{
 		*root = ft_calloc(1, sizeof(t_vector));
-		if (*root)
-			return (initialize(root, size, *(size_t *)obj));
-		else
-			return (NULL);
+		return (*root ? initialize(root, size, *(size_t *)obj) : NULL);
 	}
 }

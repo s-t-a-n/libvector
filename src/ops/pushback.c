@@ -12,7 +12,7 @@
 
 #include "vector_internal.h"
 
-void			*vec_pushback(void **root, t_sizes size, void *obj)
+void			*vec_pushback(void **root, size_t n, void *obj)
 {
 	t_vector	*vec;
 
@@ -22,6 +22,7 @@ void			*vec_pushback(void **root, t_sizes size, void *obj)
 	if (vec->size > 0)
 		vec->back++;
 	vec->size++;
-	ft_memcpy(vec->mem[vec->back], obj, size);
+	ft_memcpy(vec->mem[vec->back], obj, vec->elemsize);
 	return (root);
+	(void)n;
 }

@@ -32,15 +32,15 @@ int	main()
 	assert(vector(&root, V_PUSHBACK, S_PTR, "FAKKA4"));
 	//assert(vector(&root, V_PUSHBACK, S_PTR, "FAKKA5"));
 
-	printf("peekback : |%s|\n", vector(&root, V_PEEKBACK, S_PTR, NULL));
+	printf("peekback : |%s|\n", (char *)vector(&root, V_PEEKBACK, S_PTR, NULL));
 	vector(&root, V_POPBACK, S_PTR, NULL);
-	printf("peekback : |%s|\n", vector(&root, V_PEEKBACK, S_PTR, NULL));
+	printf("peekback : |%s|\n", (char *)vector(&root, V_PEEKBACK, S_PTR, NULL));
 	vector(&root, V_POPBACK, S_PTR, NULL);
-	printf("peekback : |%s|\n", vector(&root, V_PEEKBACK, S_PTR, NULL));
+	printf("peekback : |%s|\n", (char *)vector(&root, V_PEEKBACK, S_PTR, NULL));
 	vector(&root, V_POPBACK, S_PTR, NULL);
-	printf("peekback : |%s|\n", vector(&root, V_PEEKBACK, S_PTR, NULL));
+	printf("peekback : |%s|\n", (char *)vector(&root, V_PEEKBACK, S_PTR, NULL));
 	vector(&root, V_POPBACK, S_PTR, NULL);
-	printf("peekback : |%s|\n", vector(&root, V_PEEKBACK, S_PTR, NULL));
+	printf("peekback : |%s|\n", (char *)vector(&root, V_PEEKBACK, S_PTR, NULL));
 
 	assert(vector(&root, V_DESTROY, S_PTR, (void *)&count) == NULL);
 	assert(root == NULL);

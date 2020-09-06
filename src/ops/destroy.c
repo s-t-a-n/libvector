@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 18:50:42 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/09/06 16:05:30 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/06 18:11:23 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@ void	*vec_destroy(void **root, size_t n, void *obj)
 	if (!root || !*root)
 		return (NULL);
 	vec = (t_vector *)*root;
+	if (n)
+	{
+		while(vec->size > 0)
+		{
+			free(vec_peekback(root, n, obj));
+			vec_popback(root, n, obj);
+		}
+	}
 	free(vec->mem);
 	free(*root);
 	*root = NULL;
 	return (NULL);
-	(void)n;
-	(void)obj;
 }

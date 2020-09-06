@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 16:19:49 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:19:57 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/06 16:12:29 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ void			*vec_popback(void **root, size_t n, void *obj)
 	vec = (t_vector *)*root;
 	if (vec->size > 0)
 	{
-		if (vec->c_free)
-			vec->c_free(vec->mem[vec->back], obj);
-		else
-			free(vec->mem[vec->back]);
 		vec->back--;
 		vec->size--;
 	}
 	return (NULL);
 	(void)n;
+	(void)obj;
 }

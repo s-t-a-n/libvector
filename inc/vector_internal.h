@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 17:21:47 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:23:14 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/06 16:03:55 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ typedef struct	s_vector
 	size_t		size;
 	size_t		front;
 	size_t		back;
-	size_t		elemsize;
 	void		**mem;
-	void		(*c_free)(void *ptr, void *obj);
-	void		(*c_clone)(void *dst, void *src, size_t size);
 }				t_vector;
 
 typedef void	*(*t_jumpfunc)(void **root, size_t n, void *obj);

@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 18:15:53 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 17:12:51 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/06 16:00:26 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ static void		*initialize(void **root, size_t cap)
 		vec->size = 0;
 		vec->front = 0;
 		vec->back = 0;
-		vec->elemsize = sizeof(void *);
 		while (cap > 0)
 		{
-			vec->mem[cap - 1] = ft_calloc(1, vec->elemsize);
+			vec->mem[cap - 1] = ft_calloc(1, sizeof(void *));
 			if (!vec->mem[cap - 1])
 				return (unroll_and_free(root, vec->cap, cap));
 			cap--;

@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 14:47:55 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/09/06 15:23:16 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/06 15:58:33 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			*vec_pushback(void **root, size_t n, void *obj)
 		return (NULL);
 	if (vec->size > 0)
 		vec->back++;
-	ft_memcpy(vec->mem[vec->back], obj, vec->elemsize);
+	vec->mem[vec->back] = obj;
 	return (root);
 	(void)n;
 }

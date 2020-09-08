@@ -12,12 +12,15 @@
 
 #include "vector_internal.h"
 
+/*
+** pushat only allows pushing between existing indices
+*/
 void			*vec_pushat(void **root, size_t index, void *obj)
 {
 	t_vector	*vec;
 
 	vec = (t_vector *)*root;
-	if (index > vec->front && index < vec->back)
+	if (index >= vec->front && index <= vec->back)
 	{
 		vec->size++;
 		if (vec->size == vec->cap && !resize(vec, vec->cap, vec->cap * 2))

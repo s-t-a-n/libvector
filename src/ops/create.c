@@ -14,22 +14,6 @@
 
 #include <stdio.h>
 
-static void		*unroll_and_free(void **root, size_t cap, size_t halt)
-{
-	t_vector *vec;
-
-	vec = (t_vector *)*root;
-	while (cap > halt)
-	{
-		free(vec->mem[cap - 1]);
-		cap--;
-	}
-	free(vec->mem);
-	free(*root);
-	*root = NULL;
-	return (root);
-}
-
 static void		*initialize(void **root, size_t cap)
 {
 	t_vector *vec;
@@ -39,16 +23,6 @@ static void		*initialize(void **root, size_t cap)
 	if (vec->mem)
 	{
 		vec->cap = cap;
-		vec->size = 0;
-		vec->front = 0;
-		vec->back = 0;
-		while (cap > 0)
-		{
-			vec->mem[cap - 1] = ft_calloc(1, sizeof(void *));
-			if (!vec->mem[cap - 1])
-				return (unroll_and_free(root, vec->cap, cap));
-			cap--;
-		}
 		return (root);
 	}
 	else

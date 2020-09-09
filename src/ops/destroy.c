@@ -12,14 +12,14 @@
 
 #include "vector_internal.h"
 
-void	*vec_destroy(void **root, size_t n, void *obj)
+void	*vec_destroy(void **root, size_t is_malloced, void *obj)
 {
 	t_vector *vec;
 
 	if (!root || !*root)
 		return (NULL);
 	vec = (t_vector *)*root;
-	if (n)
+	if (is_malloced)
 	{
 		while(vec->size > 0)
 		{

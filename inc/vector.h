@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 17:14:23 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:23:23 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/20 00:02:15 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,6 @@ typedef enum	e_ops
 	V_SIZE,
 	E_OPS_END
 }				t_ops;
-
-/*
-typedef enum	e_sizes
-{
-	S_CHAR = sizeof(char),
-	S_SHORT = sizeof(short),
-	S_INT = sizeof(int),
-	S_LONG = sizeof(long),
-	S_SIZET = sizeof(size_t),
-	S_DOUBLE = sizeof(double),
-	S_PTR = sizeof(void *),
-	S_C1 = sizeof(S_C1_STRUCT),
-	S_C2 = sizeof(S_C2_STRUCT),
-	S_C3 = sizeof(S_C3_STRUCT),
-}				t_sizes;
-*/
 
 void	*vector(void **root, t_ops op, size_t n, void *obj);
 

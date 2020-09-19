@@ -6,7 +6,7 @@
 #    By: sverschu <sverschu@student.codam.n>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/20 13:11:59 by sverschu      #+#    #+#                  #
-#    Updated: 2020/08/07 17:17:25 by sverschu      ########   odam.nl          #
+#    Updated: 2020/09/20 00:03:35 by sverschu      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,7 +148,7 @@ $(OBJ): $(OBJ_D)/%.o: $(SRC_D)/%.c
 
 clean:
 	@$(RM) $(OBJ)
-	@$(RM) -r $(NAME).dSYM
+	@$(RM) -r *.dSYM
 	@$(RM) *.testbin
 	@$(RM) -r $(OBJ_D)
 

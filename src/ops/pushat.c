@@ -6,7 +6,7 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 16:04:13 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/09/06 16:03:12 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/09/20 00:02:51 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** pushat only allows pushing between existing indices
 */
+
 void			*vec_pushat(void **root, size_t index, void *obj)
 {
 	t_vector	*vec;

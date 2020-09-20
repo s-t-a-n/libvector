@@ -21,18 +21,6 @@
 # include <sys/types.h>
 # include <stddef.h>
 
-# ifndef S_C1_STRUCT
-#  define S_C1_STRUCT	NULL
-# endif
-
-# ifndef S_C2_STRUCT
-#  define S_C2_STRUCT	NULL
-# endif
-
-# ifndef S_C3_STRUCT
-#  define S_C3_STRUCT	NULL
-# endif
-
 typedef enum	e_ops
 {
 	E_OPS_BEGIN,

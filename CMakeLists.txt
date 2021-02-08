@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.5)
+project(vector)
+add_library(vector STATIC
+src/dispatch.c
+src/vector.c
+src/libc/ft_memcpy.c
+src/libc/ft_memmove.c
+src/libc/ft_realloc.c
+src/libc/ft_calloc.c
+src/libc/ft_memset.c
+src/ops/pushback.c
+src/ops/pushat.c
+src/ops/clone.c
+src/ops/pushfront.c
+src/ops/peekat.c
+src/ops/size.c
+src/ops/peekback.c
+src/ops/peekfront.c
+src/ops/destroy.c
+src/ops/popfront.c
+src/ops/create.c
+src/ops/popat.c
+src/ops/popback.c
+src/generic/resize.c
+)
+target_include_directories(vector
+    PUBLIC
+		inc
+)

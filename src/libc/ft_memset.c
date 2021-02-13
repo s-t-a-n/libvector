@@ -12,13 +12,15 @@
 
 #include <stddef.h>
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *b_, int c, size_t len)
 {
-	const void *b_orig = b;
+	unsigned char	*b;
+	const void		*b_orig = b_;
 
+	b = b_;
 	while (len > 0)
 	{
-		*(unsigned char *)b = (unsigned char)c;
+		*b = (unsigned char)c;
 		b++;
 		len--;
 	}

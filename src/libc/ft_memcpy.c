@@ -12,15 +12,18 @@
 
 #include <stddef.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst_, const void *src_, size_t n)
 {
-	const void		*orig_dst = dst;
+	unsigned char		*dst;
+	const unsigned char	*src = src_;
+	const void			*orig_dst = dst_;
 
+	dst = dst_;
 	if (dst == src)
 		return ((void *)orig_dst);
 	while (n > 0)
 	{
-		*(unsigned char *)dst = *(unsigned char *)src;
+		*dst = *src;
 		n--;
 		dst++;
 		src++;

@@ -6,16 +6,19 @@
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 21:58:34 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:08:18 by sverschu      ########   odam.nl         */
+/*   Updated: 2020/06/19 21:58:36 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_internal.h"
 
-static void	*ft_memcpy_rev(void *dst, const void *src, size_t len)
+static void	*ft_memcpy_rev(void *dst_, const void *src_, size_t len)
 {
-	const void		*orig_dst = dst;
+	unsigned char		*dst;
+	const unsigned char	*src = src_;
+	const void			*orig_dst = dst_;
 
+	dst = dst_;
 	dst += len - 1;
 	src += len - 1;
 	while (len > 0)

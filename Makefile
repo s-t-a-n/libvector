@@ -69,7 +69,7 @@ CC = clang
 LD = ar
 
 # compile, linker and test flags
-CC_FLAGS =	-Wall -Wextra -Werror
+CC_FLAGS =	-Wall -Wextra -Werror -std=c99 -pedantic
 LD_FLAGS =  -rcs
 T_FLAGS = 	-lcriterion
 

@@ -20,12 +20,12 @@ TEST_CASE( "create_destroy", "[vector]" ) {
 
 TEST_CASE( "push_pop", "[vector]" ) {
 	void	*root;
-	char	*str = "Vector life.";
+	char	*str = (char *)"Vector life.";
 	size_t	size = 1;
 
 	CHECK(vector(&root, V_CREATE, size, NULL));
 	CHECK(vector(&root, V_PUSHBACK, 0, str));
-	printf("%s\n", vector(&root, V_PEEKBACK, 0, NULL));
+	printf("%s\n", (char *)vector(&root, V_PEEKBACK, 0, NULL));
 	CHECK(memcmp(vector(&root, V_PEEKBACK, 0, NULL), str, strlen(str)) == 0);
 	CHECK(vector(&root, V_POPBACK, 0, NULL) == NULL);
 	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == 0);
@@ -41,14 +41,14 @@ TEST_CASE( "push_realloc", "[vector]" ) {
 	CHECK(vector(&root, V_CREATE, size, NULL));
 	for (unsigned int i = 0; i < run_size; i++)
 	{
-		char *str = calloc(1024, 1);
+		char *str = (char *)calloc(1024, 1);
 		CHECK(vector(&root, V_PUSHBACK, 0, str));
 	}
 
-	char *cmpstr = calloc(1024, 1);
+	char *cmpstr = (char *)calloc(1024, 1);
 	for (unsigned int i = 0; i < run_size; i++)
 	{
-		char *str = vector(&root, V_PEEKBACK, 0, NULL);
+		char *str = (char *)vector(&root, V_PEEKBACK, 0, NULL);
 		CHECK(str);
 		CHECK(memcmp(str, cmpstr, 1024) == 0);
 		free(str);

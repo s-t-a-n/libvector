@@ -1,29 +1,62 @@
-cmake_minimum_required(VERSION 3.5)
-project(vector)
-add_library(vector STATIC
-src/dispatch.c
-src/vector.c
-src/libc/ft_memcpy.c
-src/libc/ft_memmove.c
-src/libc/ft_realloc.c
-src/libc/ft_calloc.c
-src/libc/ft_memset.c
-src/ops/pushback.c
-src/ops/pushat.c
-src/ops/clone.c
-src/ops/pushfront.c
-src/ops/peekat.c
-src/ops/size.c
-src/ops/peekback.c
-src/ops/peekfront.c
-src/ops/destroy.c
-src/ops/popfront.c
-src/ops/create.c
-src/ops/popat.c
-src/ops/popback.c
-src/generic/resize.c
+cmake_minimum_required(VERSION 3.12)
+project(
+	vector
+	VERSION 0.1
+	DESCRIPTION "libvector - A vector library for C."
+	LANGUAGES C CXX)
+
+# CMakeLists.txt inspired by:
+# https://gitlab.com/CLIUtils/modern-cmake/tree/master/examples/extended-project
+
+# Only do these if this is the main project, and not if it is included through add_subdirectory
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	# global compilation standards
+	set(CMAKE_C_STANDARD 99)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -Wextra -pedantic")
+	
+	set(CMAKE_CXX_STANDARD 98)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -pedantic")
+
+	option(BUILD_TESTING "Build unittests and standlone torture 'apps' " ON)
+
+	if(BUILD_TESTING)
+		include(CTest)
+
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fsanitize=address")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address")
+	endif()
+
+	# Let's nicely support folders in IDEs
+	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+	# Docs only available if this is the main app
+	find_package(Doxygen)
+	if(Doxygen_FOUND)
+		add_subdirectory(docs)
+	else()
+		message(STATUS "Doxygen not found, not building docs")
+	endif()
+endif()
+
+# FetchContent added in CMake 3.11, downloads during the configure step
+include(FetchContent)
+
+# FetchContent_MakeAvailable was not added until CMake 3.14; use our shim
+if(${CMAKE_VERSION} VERSION_LESS 3.14)
+	include(cmake/add_FetchContent_MakeAvailable.cmake)
+endif()
+
+add_subdirectory(src)
+
+ADD_CUSTOM_TARGET(distclean
+  COMMAND ${CMAKE_COMMAND} -E echo "Cleaning all files not in source control."
+  COMMAND git clean -d -f -X
+    WORKING_DIRECTORY ${vector_SOURCE_DIR}
 )
-target_include_directories(vector
-    PUBLIC
-		inc
-)
+
+# Testing only available if this is the main app
+# Emergency override MODERN_CMAKE_BUILD_TESTING provided as well
+if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING)
+   AND BUILD_TESTING)
+  add_subdirectory(tests)
+endif()

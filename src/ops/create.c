@@ -12,8 +12,6 @@
 
 #include "vector_internal.h"
 
-#include <stdio.h>
-
 static void		*initialize(void **root, size_t cap)
 {
 	t_vector *vec;

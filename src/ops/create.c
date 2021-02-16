@@ -35,7 +35,7 @@ static void		*initialize(void **root, size_t cap)
 
 void			*vec_create(void **root, size_t size, void *obj)
 {
-	if (!root || size <= 0)
+	if (!root || size == 0)
 	{
 		return (NULL);
 	}

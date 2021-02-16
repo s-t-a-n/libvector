@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "assert.h"
 #include "vector_internal.h"
 
 void			*vec_popback(void **root, size_t n, void *obj)
@@ -19,7 +20,8 @@ void			*vec_popback(void **root, size_t n, void *obj)
 	vec = (t_vector *)*root;
 	if (vec->size > 0)
 	{
-		vec->back--;
+		if (vec->back > 0)
+			vec->back--;
 		vec->size--;
 	}
 	return (NULL);

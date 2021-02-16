@@ -58,3 +58,51 @@ TEST_CASE( "push_realloc", "[vector]" ) {
 	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == 0);
 	CHECK(vector(&root, V_DESTROY, 0, NULL) == NULL);
 }
+
+TEST_CASE( "clear_realloced", "[vector]" ) {
+	void	*root;
+	size_t	size = 1;
+	size_t	run_size = 50;
+
+	CHECK(vector(&root, V_CREATE, size, NULL));
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		char *str = (char *)calloc(1024, 1);
+		CHECK(vector(&root, V_PUSHBACK, 0, str));
+	}
+
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
+	CHECK(vector(&root, V_CLEAR, true, NULL));
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == 0);
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		char *str = (char *)calloc(1024, 1);
+		CHECK(vector(&root, V_PUSHBACK, 0, str));
+	}
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
+	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+}
+
+TEST_CASE( "clear_oversized", "[vector]" ) {
+	void	*root;
+	size_t	size = 100;
+	size_t	run_size = 50;
+
+	CHECK(vector(&root, V_CREATE, size, NULL));
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		char *str = (char *)calloc(1024, 1);
+		CHECK(vector(&root, V_PUSHBACK, 0, str));
+	}
+
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
+	CHECK(vector(&root, V_CLEAR, true, NULL));
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == 0);
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		char *str = (char *)calloc(1024, 1);
+		CHECK(vector(&root, V_PUSHBACK, 0, str));
+	}
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
+	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+}

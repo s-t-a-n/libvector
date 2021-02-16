@@ -26,6 +26,7 @@ typedef enum	e_ops
 	E_OPS_BEGIN,
 	V_CREATE,
 	V_DESTROY,
+	V_CLEAR,
 	V_CLONE,
 	V_PUSHFRONT,
 	V_PUSHBACK,

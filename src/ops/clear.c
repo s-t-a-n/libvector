@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   popback.c                                          :+:    :+:            */
+/*   clear.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/07 16:19:49 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/09/06 16:12:29 by sverschu      ########   odam.nl         */
+/*   Created: 2020/08/06 18:50:42 by sverschu      #+#    #+#                 */
+/*   Updated: 2020/09/20 00:02:28 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "assert.h"
+#include <assert.h>
 #include "vector_internal.h"
 
-void			*vec_popback(void **root, size_t n, void *obj)
+void	*vec_clear(void **root, size_t is_malloced, void *obj)
 {
-	t_vector	*vec;
+	t_vector *vec;
 
+	if (!root || !*root)
+		return (NULL);
 	vec = (t_vector *)*root;
-	if (vec->size > 0)
+	while (vec->size > 0)
 	{
-		if (vec->back > 0)
-			vec->back--;
-		vec->size--;
+		if (is_malloced)
+			free(vec_peekback(root, 0, obj));
+		vec_popback(root, 0, obj);
 	}
-	return (NULL);
-	(void)n;
-	(void)obj;
+
+	assert(vec->size == 0);
+	assert(vec->front == 0);
+	assert(vec->back == 0);
+	return (root);
 }

@@ -106,3 +106,63 @@ TEST_CASE( "clear_oversized", "[vector]" ) {
 	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
 	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
 }
+
+static int	number;
+
+static int	test_is_number(void *obj)
+{
+	struct tst {
+		int a;
+	};
+
+	tst *t = (tst *)obj;
+	return ((t->a == number) ? t->a : 0);
+}
+
+TEST_CASE( "find_nth", "[vector]" ) {
+	/* this test deserves a whole lot more love */
+	struct tst {
+		int a;
+	};
+	tst		*t;
+	void	*root;
+	size_t	size = 100;
+	size_t	run_size = 100;
+
+	
+	CHECK(vector(&root, V_CREATE, size, NULL));
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		t = (tst *)malloc(sizeof(struct tst));
+		t->a = i;
+		CHECK(vector(&root, V_PUSHBACK, 0, t));
+	}
+
+	/* check if function passed bool function returns correct item */
+	number = 5;
+	tst *t1 = (tst *)vector(&root, V_FIND_NTH, 0, (void *)test_is_number);
+	REQUIRE(t1 != NULL);
+	CHECK(t1->a == number);
+
+	/* check that there was indeed no second occasion of the same number */
+	t = (tst *)vector(&root, V_FIND_NTH, 1, (void *)test_is_number);
+	CHECK(t == NULL);
+
+	/* check if calling again returns the same pointer */
+	t = (tst *)vector(&root, V_FIND_NTH, 0, (void *)test_is_number);
+	REQUIRE(t != NULL);
+	CHECK(t1->a == number);
+	CHECK(t1 == t);
+	
+	/*check that when pushing another element of the same type does return properly when asked for*/
+	t = (tst *)malloc(sizeof(struct tst));
+	t->a = number;
+	CHECK(vector(&root, V_PUSHBACK, 0, t));
+
+	t = (tst *)vector(&root, V_FIND_NTH, 1, (void *)test_is_number);
+	REQUIRE(t != NULL);
+	CHECK(t->a == number);
+	CHECK(t != t1);
+	
+	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+}

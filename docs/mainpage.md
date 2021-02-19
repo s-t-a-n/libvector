@@ -1,11 +1,5 @@
-# Documentation for Modern Library                             {#mainpage}
+# Documentation for Libvector                             {#mainpage}
 
-This is the documentation for my simple example library.
+### Notes:
 
-It is good documentation because:
-
-1. It exists.
-2. I wrote it.
-3. Everthing is documented (pretty easy since there's only one function)
-
-The single provided function is `::accumulate_vector`.
+- using V_FIND_NTH or V_FIND_NTH_REV could have undefined consequences since a void ptr is casted to a function pointer, which on some systems do not have the same size.

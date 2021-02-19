@@ -12,6 +12,13 @@ add_library(vector ${SRC_LIST} ${SRC_SUBROOT_LIST} ${HEADER_LIST})
 # Set the compilation standards
 set_property(TARGET vector PROPERTY C_STANDARD 99)
 
+if (BUILD_TESTING)
+	target_compile_options(vector PRIVATE -Wall -Wextra -Werror -Wno-pedantic -g -fsanitize=address)
+else()
+	target_compile_options(vector PRIVATE -Wall -Wextra -Werror -Wno-pedantic)
+
+endif()
+
 # We need this directory, and users of our library will need it too
 target_include_directories(vector PUBLIC ../inc)
 

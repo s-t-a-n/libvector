@@ -34,6 +34,8 @@ SRC =	$(SRC_D)/vector.c													\
 		$(SRC_D)/ops/popfront.c												\
 		$(SRC_D)/ops/popback.c												\
 		$(SRC_D)/ops/popat.c												\
+		$(SRC_D)/ops/find_nth.c												\
+		$(SRC_D)/ops/find_nth_rev.c											\
 		$(SRC_D)/ops/size.c													\
 		$(SRC_D)/generic/resize.c											\
 		$(SRC_D)/libc/ft_memset.c											\

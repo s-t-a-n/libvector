@@ -37,10 +37,22 @@ typedef enum	e_ops
 	V_POPFRONT,
 	V_POPBACK,
 	V_POPAT,
+	V_FIND_NTH,
+	V_FIND_NTH_REV,
 	V_SIZE,
 	E_OPS_END
 }				t_ops;
 
 void	*vector(void **root, t_ops op, size_t n, void *obj);
+
+/*
+** Important:
+** - V_FIND_NTH / V_FIND_NTH_REV expect as 'void *obj' a function pointer of
+**   the type 'int (*f)(void *obj)' which returns above zero if the object
+**   is a match.
+**
+** - V_DESTROY takes as 'size_t n' as boolean wheter or not to call free on
+**   it's members.
+*/
 
 #endif

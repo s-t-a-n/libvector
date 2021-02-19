@@ -42,6 +42,8 @@ void			*vec_peekat(void **root, size_t n, void *obj);
 void			*vec_popfront(void **root, size_t n, void *obj);
 void			*vec_popback(void **root, size_t n, void *obj);
 void			*vec_popat(void **root, size_t n, void *obj);
+void			*vec_find_nth(void **root, size_t n, void *obj);
+void			*vec_find_nth_rev(void **root, size_t n, void *obj);
 void			*vec_size(void **root, size_t n, void *obj);
 
 void			*resize(t_vector *vec, size_t cap, size_t new_cap);

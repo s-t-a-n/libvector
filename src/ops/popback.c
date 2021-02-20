@@ -20,11 +20,12 @@ void			*vec_popback(void **root, size_t n, void *obj)
 	vec = (t_vector *)*root;
 	if (vec->size > 0)
 	{
+		obj = vec->mem[vec->back];
 		if (vec->back > 0)
 			vec->back--;
 		vec->size--;
+		return (obj);
 	}
-	return (NULL);
 	(void)n;
-	(void)obj;
+	return (NULL);
 }

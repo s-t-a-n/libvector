@@ -19,10 +19,11 @@ void			*vec_popfront(void **root, size_t n, void *obj)
 	vec = (t_vector *)*root;
 	if (vec->size > 0)
 	{
+		obj = vec->mem[vec->front];
 		vec->front++;
 		vec->size--;
+		return (obj);
 	}
 	return (NULL);
 	(void)n;
-	(void)obj;
 }

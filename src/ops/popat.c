@@ -19,12 +19,13 @@ void			*vec_popat(void **root, size_t index, void *obj)
 	vec = (t_vector *)*root;
 	if (vec->size > 0 && index >= vec->front && index <= vec->back)
 	{
-		ft_memmove(vec->mem[index], vec->mem[index + 1],
+		obj = vec->mem[index];
+		ft_memmove(&vec->mem[index], &vec->mem[index + 1],
 				(vec->size - index - 1) * sizeof(void *));
 		vec->mem[vec->back] = NULL;
 		vec->back--;
 		vec->size--;
+		return (obj);
 	}
 	return (NULL);
-	(void)obj;
 }

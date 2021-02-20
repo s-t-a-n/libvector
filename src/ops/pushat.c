@@ -26,7 +26,7 @@ void			*vec_pushat(void **root, size_t index, void *obj)
 		vec->size++;
 		if (vec->size == vec->cap && !resize(vec, vec->cap, vec->cap * 2))
 			return (NULL);
-		ft_memmove(vec->mem[index + 1], vec->mem[index],
+		ft_memmove(&vec->mem[index + 1], &vec->mem[index],
 				(vec->size - index - 1) * sizeof(void *));
 		vec->mem[index] = obj;
 		vec->back++;

@@ -172,6 +172,29 @@ TEST_CASE( "push_at", "[vector]" ) {
 	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
 }
 
+TEST_CASE( "push_at_index==size", "[vector]" ) {
+	char	*str;
+	void	*root;
+	size_t	size = 100;
+	size_t	run_size = 2;
+
+	CHECK(vector(&root, V_CREATE, size, NULL));
+	for (unsigned int i = 0; i < run_size; i++)
+	{
+		str = (char *)malloc(1024);
+		snprintf(str, 1024, "%i", i);
+		CHECK(vector(&root, V_PUSHBACK, 0, str));
+	}
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size);
+	
+	str = (char *)malloc(1024);
+	CHECK(vector(&root, V_PUSHAT, run_size, str));
+
+	CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == run_size + 1);
+
+	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+}
+
 static int	number;
 
 static int	test_is_number(void *obj)

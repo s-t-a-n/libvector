@@ -32,6 +32,8 @@ void			*vec_pushat(void **root, size_t index, void *obj)
 		vec->back++;
 		return (root);
 	}
+	else if (index == vec->size)
+		return (vec_pushback(root, index, obj));
 	else
 		return (NULL);
 }

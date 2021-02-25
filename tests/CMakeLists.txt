@@ -6,7 +6,7 @@ FetchContent_MakeAvailable(Catch2)
 
 #### Combined unittest
 
-if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING))
+if((CMAKE_PROJECT_NAME STREQUAL vector OR MODERN_CMAKE_BUILD_TESTING))
   set (TEST "test-all")
   file(GLOB SRC_LIST CONFIGURE_DEPENDS "src/*.cpp")
   

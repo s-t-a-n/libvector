@@ -4,16 +4,21 @@ FetchContent_Declare(
   GIT_TAG        v2.13.4)
 FetchContent_MakeAvailable(Catch2)
 
-## All unittests
-set (TEST "test-all")
-file(GLOB SRC_LIST CONFIGURE_DEPENDS "src/*.cpp")
+#### Combined unittest
 
-add_executable(${TEST}.bin ${SRC_LIST})
-target_compile_features(${TEST}.bin PRIVATE cxx_std_14)
-target_link_libraries(${TEST}.bin PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(${TEST}.bin PRIVATE vector)
-add_test(NAME ${TEST}
-		COMMAND ${TEST}.bin)
+if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING))
+  set (TEST "test-all")
+  file(GLOB SRC_LIST CONFIGURE_DEPENDS "src/*.cpp")
+  
+  add_executable(${TEST}.bin ${SRC_LIST})
+  target_compile_features(${TEST}.bin PRIVATE cxx_std_14)
+  target_link_libraries(${TEST}.bin PRIVATE Catch2::Catch2WithMain)
+  target_link_libraries(${TEST}.bin PRIVATE vector)
+  add_test(NAME ${TEST}
+  		COMMAND ${TEST}.bin)
+endif()
+
+#### Individual unittests
 
 ## Basics unittest
 set (TEST "test-basics")

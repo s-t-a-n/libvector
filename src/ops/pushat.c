@@ -24,7 +24,7 @@ void			*vec_pushat(void **root, size_t index, void *obj)
 	if (index >= vec->front && index <= vec->back)
 	{
 		vec->size++;
-		if (vec->size == vec->cap && !resize(vec, vec->cap, vec->cap * 2))
+		if (vec->size >= vec->cap && !reallocate(vec, vec->cap, vec->cap * 2))
 			return (NULL);
 		ft_memmove(&vec->mem[index + 1], &vec->mem[index],
 				(vec->size - index - 1) * sizeof(void *));

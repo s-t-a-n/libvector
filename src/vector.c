@@ -18,6 +18,7 @@
 
 void		*vector(void **root, t_ops op, size_t n, void *obj)
 {
+	assert(root);
 	assert(dispatch(op) != NULL);
 	return (dispatch(op)(root, n, obj));
 }

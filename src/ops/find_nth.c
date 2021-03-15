@@ -14,10 +14,11 @@
 
 void			*vec_find_nth(void **root, size_t n, void *obj)
 {
+	int			(*f)(void *obj);
 	size_t		index;
 	t_vector	*vec;
-	int	(*f)(void *obj) = (int (*)(void *))obj;
 
+	f = (int (*)(void *))obj;
 	vec = (t_vector *)*root;
 	index = 0;
 	while (index < vec->size)

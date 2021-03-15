@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assert.h>
 #include "vector_internal.h"
 
 void	*vec_clear(void **root, size_t is_malloced, void *obj)
@@ -26,9 +25,5 @@ void	*vec_clear(void **root, size_t is_malloced, void *obj)
 			free(vec_peekback(root, 0, obj));
 		vec_popback(root, 0, obj);
 	}
-
-	assert(vec->size == 0);
-	assert(vec->front == 0);
-	assert(vec->back == 0);
 	return (root);
 }

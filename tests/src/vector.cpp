@@ -12,13 +12,15 @@ extern "C" {
 #define TEST_SIZE	256
 static_assert(TEST_SIZE > 1, "test requirement of minimal size");
 
-TEST_CASE( "create_destroy", "[vector]" ) {
-	void *root;
-	size_t size = 8;
+TEST_CASE( "create_destroy", "[vector]" )
+{
+	void	*root;
+	size_t	size = 1;
 
 	CHECK(vector(&root, V_CREATE, size, NULL));
 
 	CHECK(vector(&root, V_DESTROY, 0, NULL) == NULL);
+	CHECK(root == NULL);
 }
 
 TEST_CASE( "adopt", "[vector]" )

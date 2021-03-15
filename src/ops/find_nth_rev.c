@@ -14,10 +14,11 @@
 
 void			*vec_find_nth_rev(void **root, size_t n, void *obj)
 {
+	int			(*f)(void *obj);
 	ssize_t		index;
 	t_vector	*vec;
-	int (*f)(void *obj) = (int (*)(void *))obj;
 
+	f = (int (*)(void *))obj;
 	vec = (t_vector *)*root;
 	index = vec->size - 1;
 	while (index >= 0)

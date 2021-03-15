@@ -5,22 +5,42 @@
 /*                                                     +:+                    */
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/07 14:49:11 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:22:20 by sverschu      ########   odam.nl         */
+/*   Created: 2021/03/15 18:15:53 by sverschu      #+#    #+#                 */
+/*   Updated: 2021/03/15 16:00:26 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_internal.h"
 
-void	*resize(t_vector *vec, size_t cap, size_t new_cap)
+static void		remove_and_destroy(t_vector *old_vec,
+									size_t new_size,
+									void *obj)
 {
-	void	*nmem;
+	void		(*free_f)(void *);
 
-	nmem = ft_realloc(vec->mem, sizeof(void *) * cap, sizeof(void *) * new_cap);
-	if (nmem)
+	free_f = (obj == NULL) ? free : (void (*)(void *))obj;
+	while (old_vec->size > new_size)
+		free_f(vec_popback((void **)&old_vec, 0, NULL));
+	free(old_vec->mem);
+	free(old_vec);
+}
+
+void			*vec_resize(void **root, size_t new_size, void *obj)
+{
+	void		*new_root;
+
+	if (!root || new_size == 0)
 	{
-		vec->mem = nmem;
-		vec->cap = new_cap;
+		return (NULL);
 	}
-	return (nmem);
+	else
+	{
+		if (vec_clone(root, new_size, &new_root))
+		{
+			remove_and_destroy((t_vector *)*root, new_size, obj);
+			*root = new_root;
+			return (root);
+		}
+		return (NULL);
+	}
 }

@@ -12,30 +12,39 @@
 
 #include "vector_internal.h"
 
-static void		clone(t_vector *dst, t_vector *src)
+static void		clone(t_vector *dst, t_vector *src, size_t n)
 {
-	void		**tmp_mem;
-
-	tmp_mem = dst->mem;
-	ft_memcpy(dst, src, sizeof(t_vector));
-	dst->mem = tmp_mem;
-	ft_memcpy(dst->mem, src->mem, dst->cap);
-}
-
-void			*vec_clone(void **root, size_t n, void *obj)
-{
-	void		*new_root;
-
-	if (!root || !*root)
-		return (NULL);
-	new_root = malloc(sizeof(t_vector));
-	if (new_root && vec_create(&new_root, n,
-				(void *)&((t_vector *)*root)->cap))
+	if (n > src->size)
 	{
-		clone((t_vector *)new_root, (t_vector *)*root);
-		return (new_root);
+		dst->size = src->size;
+		ft_memcpy(dst->mem,
+					&src->mem[src->front],
+					src->size * sizeof(void *));
 	}
 	else
+	{
+		ft_memcpy(dst->mem,
+					&src->mem[src->front],
+					n * sizeof(void *));
+		dst->size = n;
+	}
+	dst->front = 0;
+	dst->back = dst->size - 1;
+}
+
+void			*vec_clone(void **old_root, size_t n, void *obj)
+{
+	void		**new_root;
+
+	if (!old_root || !*old_root || !obj)
 		return (NULL);
-	(void)obj;
+	new_root = (void **)obj;
+	if (n == 0)
+		n = ((t_vector *)*old_root)->size;
+	if (vec_create(new_root, n, NULL) != NULL)
+	{
+		clone((t_vector *)*new_root, (t_vector *)*old_root, n);
+		return (obj);
+	}
+	return (NULL);
 }

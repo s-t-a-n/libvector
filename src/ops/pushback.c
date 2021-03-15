@@ -18,7 +18,7 @@ void			*vec_pushback(void **root, size_t n, void *obj)
 
 	vec = (t_vector *)*root;
 	vec->size++;
-	if (vec->size >= vec->cap && !resize(vec, vec->cap, vec->cap * 2))
+	if (vec->size >= vec->cap && !reallocate(vec, vec->cap, vec->cap * 2))
 		return (NULL);
 	if (vec->size > 1)
 		vec->back++;

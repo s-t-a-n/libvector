@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   clear.c                                            :+:    :+:            */
+/*   reallocate.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sverschu <sverschu@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/06 18:50:42 by sverschu      #+#    #+#                 */
-/*   Updated: 2020/09/20 00:02:28 by sverschu      ########   odam.nl         */
+/*   Created: 2020/08/07 14:49:11 by sverschu      #+#    #+#                 */
+/*   Updated: 2021/03/15 16:22:20 by sverschu      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_internal.h"
 
-void	*vec_clear(void **root, size_t is_malloced, void *obj)
+void	*reallocate(t_vector *vec, size_t cap, size_t new_cap)
 {
-	t_vector *vec;
+	void	*nmem;
 
-	if (!root || !*root)
-		return (NULL);
-	vec = (t_vector *)*root;
-	while (vec->size > 0)
+	nmem = ft_realloc(vec->mem, sizeof(void *) * cap, sizeof(void *) * new_cap);
+	if (nmem)
 	{
-		if (is_malloced)
-			free(vec_peekback(root, 0, obj));
-		vec_popback(root, 0, obj);
+		vec->mem = nmem;
+		vec->cap = new_cap;
 	}
-	return (root);
+	return (nmem);
 }

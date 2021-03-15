@@ -473,3 +473,32 @@ TEST_CASE( "find_nth", "[vector]" )
 		CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
 	}
 }
+
+typedef struct
+{
+	void *mem;
+} cf_struct;
+
+static void custom_free(void *obj)
+{
+	cf_struct *cfs = (cf_struct *)obj;
+	free(cfs->mem);
+	free(obj);
+}
+
+TEST_CASE( "destroy with lambda free()", "[vector]" )
+{
+	void	*root;
+	size_t	buflen = 1;
+	size_t	size = 1;
+
+	CHECK(vector(&root, V_CREATE, size, NULL));
+
+	cf_struct *cfs = (cf_struct *)malloc(sizeof(cf_struct));
+	REQUIRE(cfs);
+	cfs->mem = malloc(buflen);
+	
+	CHECK(vector(&root, V_PUSHBACK, 0, cfs));
+
+	CHECK(vector(&root, V_DESTROY, true, (void *)custom_free) == NULL);
+}

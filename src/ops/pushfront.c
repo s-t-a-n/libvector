@@ -18,7 +18,7 @@ void			*vec_pushfront(void **root, size_t n, void *obj)
 
 	vec = (t_vector *)*root;
 	vec->size++;
-	if (vec->size == vec->cap && !resize(vec, vec->cap, vec->cap * 2))
+	if (vec->size >= vec->cap && !reallocate(vec, vec->cap, vec->cap * 2))
 		return (NULL);
 	if (vec->front > 0)
 	{
@@ -27,8 +27,8 @@ void			*vec_pushfront(void **root, size_t n, void *obj)
 	}
 	else
 	{
-		ft_memmove(vec->mem[vec->front + 1], vec->mem[vec->front],
-				vec->size * sizeof(void *));
+		ft_memmove(&vec->mem[vec->front + 1], &vec->mem[vec->front],
+				(vec->size - 1) * sizeof(void *));
 		vec->mem[vec->front] = obj;
 	}
 	return (root);

@@ -17,6 +17,9 @@
 
 # include "vector.h"
 
+#define TRUE	1
+#define FALSE	0
+
 typedef struct	s_vector
 {
 	size_t		cap;
@@ -30,6 +33,9 @@ typedef void	*(*t_jumpfunc)(void **root, size_t n, void *obj);
 t_jumpfunc		dispatch(t_ops op);
 
 void			*vec_create(void **root, size_t n, void *obj);
+void			*vec_adopt(void **root, size_t n, void *obj);
+void			*vec_abandon(void **root, size_t n, void *obj);
+void			*vec_resize(void **root, size_t n, void *obj);
 void			*vec_destroy(void **root, size_t is_malloced, void *obj);
 void			*vec_clear(void **root, size_t is_malloced, void *obj);
 void			*vec_clone(void **root, size_t n, void *obj);
@@ -46,7 +52,7 @@ void			*vec_find_nth(void **root, size_t n, void *obj);
 void			*vec_find_nth_rev(void **root, size_t n, void *obj);
 void			*vec_size(void **root, size_t n, void *obj);
 
-void			*resize(t_vector *vec, size_t cap, size_t new_cap);
+void			*reallocate(t_vector *vec, size_t cap, size_t new_cap);
 
 /*
 ** LIBC functions which may not be used in 42-curriculum

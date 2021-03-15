@@ -21,8 +21,8 @@ endif()
 #### Individual unittests
 
 ## Basics unittest
-set (TEST "test-vector-basics")
-set (SRC_LIST "src/vector-basics.cpp")
+set (TEST "test-vector")
+set (SRC_LIST "src/vector.cpp")
 
 add_executable(${TEST}.bin ${MAIN} ${SRC_LIST})
 target_compile_features(${TEST}.bin PRIVATE cxx_std_14)

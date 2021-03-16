@@ -23,6 +23,9 @@ INC_D = inc
 SRC =	$(SRC_D)/vector.c													\
 		$(SRC_D)/dispatch.c													\
 		$(SRC_D)/ops/create.c												\
+		$(SRC_D)/ops/adopt.c												\
+		$(SRC_D)/ops/abandon.c												\
+		$(SRC_D)/ops/resize.c												\
 		$(SRC_D)/ops/destroy.c												\
 		$(SRC_D)/ops/clone.c												\
 		$(SRC_D)/ops/pushfront.c											\
@@ -37,7 +40,7 @@ SRC =	$(SRC_D)/vector.c													\
 		$(SRC_D)/ops/find_nth.c												\
 		$(SRC_D)/ops/find_nth_rev.c											\
 		$(SRC_D)/ops/size.c													\
-		$(SRC_D)/generic/resize.c											\
+		$(SRC_D)/generic/reallocate.c										\
 		$(SRC_D)/libc/ft_memset.c											\
 		$(SRC_D)/libc/ft_calloc.c											\
 		$(SRC_D)/libc/ft_memcpy.c											\

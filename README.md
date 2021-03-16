@@ -16,6 +16,23 @@ See includes/vector.h for further specications of the public facing API.
 - it is guaranteed that all memory in the memory is consecutive, meaning at any point there will be no unitialized memory within the range of active elements
 - vector() is state aware -> all calls either return an object or a NULL-ptr
 
+### Compilation
+
+I wrote a Cmake wrapper 'minimake.sh' for the 42-project [minishell](http://github.com/harou24/minishell/). Run it as follows:
+
+    ./minimake.sh
+
+or to compile and run unittests and enable debugging flags:
+
+    ./minimake.sh test
+
+For the ancients (and 42 hehe) a classical Makefile is present:
+
+    make
+    make re
+    make clean
+    make fclean
+
 ### Example
 
 Common stack objects:

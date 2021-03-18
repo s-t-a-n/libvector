@@ -18,6 +18,7 @@ t_jumpfunc		dispatch(t_ops op)
 		[V_CREATE] = &vec_create,
 		[V_ADOPT] = &vec_adopt,
 		[V_ABANDON] = &vec_abandon,
+		[V_MEM] = &vec_mem,
 		[V_RESIZE] = &vec_resize,
 		[V_DESTROY] = &vec_destroy,
 		[V_CLEAR] = &vec_clear,

@@ -129,6 +129,11 @@ Abandon memory in vector:
 
     char **strbuf = (char **)vector(&root, V_ABANDON, 0, NULL);
 
+Retreive backing memory in vector:
+
+	size_t starting_index = 0;
+    char **strbuf = (char **)vector(&root, V_MEM, starting_index, NULL);
+
 ### API specfications
 
 I've tried to follow the STL vector API as much as feasible/possible.
@@ -136,6 +141,7 @@ I've tried to follow the STL vector API as much as feasible/possible.
 - V_CREATE
 - V_ADOPT -> adopt (void **) memory block
 - V_ABANDON -> destroy vector, returns (void **) memory block
+- V_MEM -> returns (void **) memory block
 - V_RESIZE
 - V_DESTROY
 - V_CLEAR

@@ -35,6 +35,7 @@ t_jumpfunc		dispatch(t_ops op);
 void			*vec_create(void **root, size_t n, void *obj);
 void			*vec_adopt(void **root, size_t n, void *obj);
 void			*vec_abandon(void **root, size_t n, void *obj);
+void			*vec_mem(void **root, size_t n, void *obj);
 void			*vec_resize(void **root, size_t n, void *obj);
 void			*vec_destroy(void **root, size_t is_malloced, void *obj);
 void			*vec_clear(void **root, size_t is_malloced, void *obj);

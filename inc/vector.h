@@ -27,6 +27,7 @@ typedef enum	e_ops
 	V_CREATE,
 	V_ADOPT,
 	V_ABANDON,
+	V_MEM,
 	V_RESIZE,
 	V_DESTROY,
 	V_CLEAR,

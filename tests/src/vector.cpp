@@ -35,6 +35,7 @@ TEST_CASE( "adopt", "[vector]" )
 		char **str_array = (char **)calloc(sizeof(char *), size); 
 		REQUIRE(str_array);
 		CHECK(vector(&root, V_ADOPT, size, str_array));
+		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size);
 
 		/* verify memory locations are actually the same */
 		str_array[0] = str;
@@ -72,6 +73,35 @@ TEST_CASE( "abandon", "[vector]" )
 		char **str_array_abandoned = (char **)vector(&root, V_ABANDON, 0, NULL);
 		CHECK(str_array_abandoned == str_array);
 		free(str_array_abandoned);
+	}
+}
+
+TEST_CASE( "mem", "[vector]" )
+{
+	void	*root;
+	char	*str = (char *)"Hello Vector.";
+	size_t	max_size = TEST_SIZE;
+	char	**str_array_from_vec;
+
+	for (size_t size = 1; size < max_size; size++)
+	{ 
+		/* build example string ** array, check if vector can adopt it */
+		char **str_array = (char **)calloc(sizeof(char *), size); 
+		REQUIRE(str_array);
+		for (size_t i = 0; i < size; i++)
+			str_array[i] = str;
+		CHECK(vector(&root, V_ADOPT, size, str_array));
+		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size);
+
+		/* retreive backing memory from vector by abandoning the vector */
+		str_array_from_vec = (char **)vector(&root, V_MEM, 0, NULL);
+		CHECK(str_array_from_vec == str_array);
+
+		CHECK(vector(&root, V_PUSHBACK, size, str));
+		str_array_from_vec = (char **)vector(&root, V_MEM, 0, NULL);
+		CHECK(str_array_from_vec != str_array);
+		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size + 1);
+		REQUIRE(vector(&root, V_DESTROY, false, NULL) == NULL);
 	}
 }
 

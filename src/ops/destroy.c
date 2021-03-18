@@ -27,10 +27,9 @@ void	*vec_destroy(void **root, size_t is_malloced, void *obj)
 		while (vec->size > 0)
 		{
 			if (obj)
-				your_free(vec_peekback(root, 0, obj));
+				your_free(vec_popback(root, 0, obj));
 			else
-				free(vec_peekback(root, 0, obj));
-			vec_popback(root, 0, obj);
+				free(vec_popback(root, 0, obj));
 		}
 	}
 	free(vec->mem);

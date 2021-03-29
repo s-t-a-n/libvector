@@ -19,7 +19,7 @@ void			*vec_replace(void **root, size_t index, void *obj)
 	vec = (t_vector *)*root;
 	if (index >= vec->front && index <= vec->back)
 	{
-		//vec->free(vec->mem[index])
+		vec->free(vec->mem[index]);
 		vec->mem[index] = obj;
 		return (obj);
 	}

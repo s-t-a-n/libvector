@@ -21,6 +21,7 @@ static void		*initialize(void **root, size_t cap)
 	if (vec->mem)
 	{
 		vec->cap = cap;
+		vec->free = free;
 		return (root);
 	}
 	else

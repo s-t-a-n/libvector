@@ -518,7 +518,7 @@ static void custom_free(void *obj)
 	free(obj);
 }
 
-TEST_CASE( "destroy with lambda free()", "[vector]" )
+TEST_CASE( "destroy after V_SETFREEFUNC", "[vector]" )
 {
 	void	*root;
 	size_t	buflen = 1;
@@ -532,5 +532,6 @@ TEST_CASE( "destroy with lambda free()", "[vector]" )
 	
 	CHECK(vector(&root, V_PUSHBACK, 0, cfs));
 
-	CHECK(vector(&root, V_DESTROY, true, (void *)custom_free) == NULL);
+	CHECK(vector(&root, V_SETFREEFUNC, 0, (void*)custom_free) != NULL);
+	CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
 }

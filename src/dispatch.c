@@ -16,6 +16,7 @@ t_jumpfunc		dispatch(t_ops op)
 {
 	static const t_jumpfunc jtable[E_OPS_END - E_OPS_BEGIN] = {
 		[V_CREATE] = &vec_create,
+		[V_SETFREEFUNC] = &vec_set_freefunc,
 		[V_ADOPT] = &vec_adopt,
 		[V_ABANDON] = &vec_abandon,
 		[V_MEM] = &vec_mem,

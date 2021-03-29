@@ -27,12 +27,14 @@ typedef struct	s_vector
 	size_t		front;
 	size_t		back;
 	void		**mem;
+	void		(*free)(void *);
 }				t_vector;
 
 typedef void	*(*t_jumpfunc)(void **root, size_t n, void *obj);
 t_jumpfunc		dispatch(t_ops op);
 
 void			*vec_create(void **root, size_t n, void *obj);
+void			*vec_set_freefunc(void **root, size_t n, void *obj);
 void			*vec_adopt(void **root, size_t n, void *obj);
 void			*vec_abandon(void **root, size_t n, void *obj);
 void			*vec_mem(void **root, size_t n, void *obj);

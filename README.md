@@ -75,6 +75,12 @@ Pop functions (removes element from vector, returns element):
     
     index = 0;
     void *popat_obj = vector(&root, V_POPAT, index, NULL);
+
+Replace function (returns new element):
+
+	void *new_obj = malloc(1024);
+	index = 0;
+    void *new_obj_returned = vector(&root, V_REPLACE, index, new_obj);
  
 Get size of vector:
    

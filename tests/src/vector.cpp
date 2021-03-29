@@ -259,6 +259,29 @@ TEST_CASE( "push_realloc", "[vector]" )
 	}
 }
 
+TEST_CASE( "replace", "[vector]" )
+{
+	void			*root;
+	char			*str = (char *)"Hello Human.";
+	char			*str2 = (char *)"Hello Robot.";
+	const size_t	max_size = TEST_SIZE;
+
+	for (size_t size = 1; size < max_size; size++)
+	{
+		REQUIRE(vector(&root, V_CREATE, size, NULL));
+
+		/* push back variables */
+		for (size_t i = 0; i < size; i++)
+			CHECK(vector(&root, V_PUSHBACK, 0, strdup(str)));
+
+		/* check if V_REPLACE, frees old memory and replace properly */
+		CHECK(vector(&root, V_REPLACE, size - 1, strdup(str2)));
+		CHECK(strcmp((char *)vector(&root, V_PEEKAT, size - 1, NULL), str2) == 0);
+
+		CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+	}
+}
+
 TEST_CASE( "clear_realloced", "[vector]" )
 {
 	void			*root;

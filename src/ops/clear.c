@@ -22,7 +22,7 @@ void	*vec_clear(void **root, size_t is_malloced, void *obj)
 	while (vec->size > 0)
 	{
 		if (is_malloced)
-			free(vec_peekback(root, 0, obj));
+			vec->free(vec_peekback(root, 0, obj));
 		vec_popback(root, 0, obj);
 	}
 	return (root);

@@ -47,7 +47,7 @@ Intialize vector:
 
     /* handle malloc() failure at your discretion! */
     vector(&root, V_CREATE, vec_default_size, NULL);
-    
+
 Push functions:
 
     obj = malloc(1024);
@@ -82,18 +82,19 @@ Get size of vector:
 
 Resize the vector:
 
-	/* resize vector -> pass any 'custom_free' as you see fit,  */
-	void (*custom_free)(void*) = free;
+	/* resize vector -> surplus elements will be freed by free() or by custom free() set by V_SETFREEFUNC */
 	size_t new_size = 128;
-	vector(&root, V_RESIZE, new_size, (void *)custom_free);
-    /* -> vector(&root, V_RESIZE, new_size, NULL); -> is the same if 'custom_free == free()' */
+	vector(&root, V_RESIZE, new_size, NULL);
 
+Set custom free() function of vector:
+
+	void (*custom_free)(void*) = free;
+    vector(&root, V_SETFREEFUNC, vec_default_size, custom_free);
+    
 Destroy the vector:
     
-    /* 'true' as passed as argument 'n' guarantees memory will be freed */
-	void (*custom_free)(void*) = free;
-    vector(&root, V_DESTROY, true, (void *)custom_free);
-    /* -> vector(&root, V_DESTROY, true, NULL); -> is the same if 'custom_free == free()' */
+    /* 'true' as passed as argument 'n' guarantees memory will be freed (by free() or custom free() set by V_SETFREEFUNC*/
+    vector(&root, V_DESTROY, true, NULL);
 
 Find object in vector:
 

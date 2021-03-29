@@ -41,6 +41,7 @@ typedef enum	e_ops
 	V_POPFRONT,
 	V_POPBACK,
 	V_POPAT,
+	V_REPLACE,
 	V_FIND_NTH,
 	V_FIND_NTH_REV,
 	V_SIZE,

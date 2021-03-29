@@ -32,6 +32,7 @@ t_jumpfunc		dispatch(t_ops op)
 		[V_POPFRONT] = &vec_popfront,
 		[V_POPBACK] = &vec_popback,
 		[V_POPAT] = &vec_popat,
+		[V_REPLACE] = &vec_replace,
 		[V_FIND_NTH] = &vec_find_nth,
 		[V_FIND_NTH_REV] = &vec_find_nth_rev,
 		[V_SIZE] = &vec_size

@@ -12,6 +12,20 @@ extern "C" {
 #define TEST_SIZE	256
 static_assert(TEST_SIZE > 1, "test requirement of minimal size");
 
+static void dump_str_vector(void *root)
+{
+	const size_t size = *(size_t *)vector(&root, V_SIZE, 0, NULL);
+	size_t i = 0;
+
+	while (i < size)
+	{
+		char *str = (char *)vector(&root, V_PEEKAT, i + 1, NULL);
+		printf("%zu: '%s'\n", i, str);
+		i++;
+	}
+	(void)dump_str_vector; /* disable unused function warning */
+} 
+
 TEST_CASE( "create_destroy", "[vector]" )
 {
 	void	*root;
@@ -78,30 +92,56 @@ TEST_CASE( "abandon", "[vector]" )
 
 TEST_CASE( "mem", "[vector]" )
 {
-	void	*root;
-	char	*str = (char *)"Hello Vector.";
-	size_t	max_size = TEST_SIZE;
-	char	**str_array_from_vec;
+	void			*root;
+	const char		*str = "Hello Vector.";
+	const size_t	buflen = 1024;
+	size_t			max_size = TEST_SIZE;
+	char			**str_array_from_vec;
 
 	for (size_t size = 1; size < max_size; size++)
 	{ 
 		/* build example string ** array, check if vector can adopt it */
-		char **str_array = (char **)calloc(sizeof(char *), size); 
+		char **str_array = (char **)calloc(sizeof(char *), size + 1); 
 		REQUIRE(str_array);
-		for (size_t i = 0; i < size; i++)
-			str_array[i] = str;
+		for (size_t i = 0; i < size; i++) {
+			char *linebuf = (char *)malloc(buflen);
+			snprintf(linebuf, buflen, "%zu", i);
+			str_array[i] = linebuf;
+		}
+
 		CHECK(vector(&root, V_ADOPT, size, str_array));
 		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size);
 
-		/* retreive backing memory from vector by abandoning the vector */
+		/* retreive backing memory from vector */
 		str_array_from_vec = (char **)vector(&root, V_MEM, 0, NULL);
 		CHECK(str_array_from_vec == str_array);
 
-		CHECK(vector(&root, V_PUSHBACK, size, str));
+		/* check to see if reallocation does indeed change memory location */
+		CHECK(vector(&root, V_PUSHBACK, 0, strdup(str)));
+		CHECK(vector(&root, V_PUSHFRONT, 0, strdup(str)));
 		str_array_from_vec = (char **)vector(&root, V_MEM, 0, NULL);
+		CHECK(str_array_from_vec);
 		CHECK(str_array_from_vec != str_array);
-		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size + 1);
-		REQUIRE(vector(&root, V_DESTROY, false, NULL) == NULL);
+		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size + 2);
+	
+		/* verify that returned memory is valid */	
+		CHECK(strcmp(str_array_from_vec[0], str) == 0);
+		for (size_t i = 1; i < size; i++) {
+			char linebuf[buflen];
+			snprintf(linebuf, buflen, "%zu", i);
+			CHECK(strcmp(str_array_from_vec[i + 1], linebuf) == 0);
+		}
+		CHECK(strcmp(str_array_from_vec[size + 1], str) == 0);
+
+		/* verify that vector worked as normal vector */
+		CHECK(strcmp((char *)vector(&root, V_PEEKFRONT, 0, NULL), str) == 0);
+		for (size_t i = 0; i < size; i++) {
+			char linebuf[buflen];
+			snprintf(linebuf, buflen, "%zu", i);
+			CHECK(strcmp((char *)vector(&root, V_PEEKAT, i + 1, NULL), linebuf) == 0);
+		}
+		CHECK(strcmp((char *)vector(&root, V_PEEKBACK, 0, NULL), str) == 0);
+		REQUIRE(vector(&root, V_DESTROY, true, NULL) == NULL);
 	}
 }
 

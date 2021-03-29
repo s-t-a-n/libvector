@@ -13,14 +13,10 @@
 #include "vector_internal.h"
 
 static void		remove_and_destroy(t_vector *old_vec,
-									size_t new_size,
-									void *obj)
+									size_t new_size)
 {
-	void		(*free_f)(void *);
-
-	free_f = (obj == NULL) ? free : (void (*)(void *))obj;
 	while (old_vec->size > new_size)
-		free_f(vec_popback((void **)&old_vec, 0, NULL));
+		old_vec->free(vec_popback((void **)&old_vec, 0, NULL));
 	free(old_vec->mem);
 	free(old_vec);
 }
@@ -37,10 +33,11 @@ void			*vec_resize(void **root, size_t new_size, void *obj)
 	{
 		if (vec_clone(root, new_size, &new_root))
 		{
-			remove_and_destroy((t_vector *)*root, new_size, obj);
+			remove_and_destroy((t_vector *)*root, new_size);
 			*root = new_root;
 			return (root);
 		}
 		return (NULL);
 	}
+	(void)obj;
 }

@@ -25,6 +25,7 @@ typedef enum	e_ops
 {
 	E_OPS_BEGIN,
 	V_CREATE,
+	V_SETFREEFUNC,
 	V_ADOPT,
 	V_ABANDON,
 	V_MEM,
@@ -55,9 +56,11 @@ void	*vector(void **root, t_ops op, size_t n, void *obj);
 **   the type 'int (*f)(void *obj)' which returns above zero if the object
 **   is a match.
 **
+** - V_SETFREEFUNC Passing a function pointer as 'void (*f)(void *)' to 'obj'
+**   will set that function as default destructor of elements.
+**
 ** - V_DESTROY takes the 'n' argument as boolean whether or not to call free()
-**   on it's members. Passing a function pointer as 'void (*f)(void *)' to 'obj'
-**   will use that function to free the variables. NULL as 'obj' will use free()
+**   on it's members.
 **
 ** - V_ADOPT takes as 'obj' an array of pointers, takes as 'n', the number
 **   of current elements. V_ADOPT will realloc on the first next insertion.
@@ -71,8 +74,8 @@ void	*vector(void **root, t_ops op, size_t n, void *obj);
 **   If smaller than the current vector's size, only 'n' elements will be copied
 **
 ** - V_RESIZE takes as 'n' the new size. If smaller than the current size, the
-**   objects will be freed by the void (*f)(void *) function pass to 'obj' or
-**   by free() if 'obj' is NULL
+**   surplus elements will be freed (by free or custom free set by 
+**   SETFREEFUNC);
 */
 
 #endif

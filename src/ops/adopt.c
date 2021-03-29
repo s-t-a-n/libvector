@@ -22,7 +22,7 @@ static void		*initialize(void **root, size_t size, void **mem)
 	vec->size = size;
 	vec->front = 0;
 	vec->free = free;
-	vec->back = (size > 0) ? size - 1 : size;
+	vec->back = (size > 0) ? size - 1: 0;
 	return (root);
 }
 

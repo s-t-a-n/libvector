@@ -12,7 +12,7 @@ extern "C" {
 #define TEST_SIZE	256
 static_assert(TEST_SIZE > 1, "test requirement of minimal size");
 
-static void dump_str_vector(void *root)
+void dump_str_vector(void *root)
 {
 	const size_t size = *(size_t *)vector(&root, V_SIZE, 0, NULL);
 	size_t i = 0;
@@ -23,7 +23,6 @@ static void dump_str_vector(void *root)
 		printf("%zu: '%s'\n", i, str);
 		i++;
 	}
-	(void)dump_str_vector; /* disable unused function warning */
 } 
 
 TEST_CASE( "create_destroy", "[vector]" )

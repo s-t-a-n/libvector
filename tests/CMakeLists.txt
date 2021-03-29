@@ -4,29 +4,15 @@ FetchContent_Declare(
   GIT_TAG        v2.13.4)
 FetchContent_MakeAvailable(Catch2)
 
-#### Combined unittest
+file(GLOB TEST_FILES src/*.cpp)
 
-if((CMAKE_PROJECT_NAME STREQUAL vector OR MODERN_CMAKE_BUILD_TESTING))
-  set (TEST "test-all")
-  file(GLOB SRC_LIST CONFIGURE_DEPENDS "src/*.cpp")
-  
-  add_executable(${TEST}.bin ${SRC_LIST})
-  target_compile_features(${TEST}.bin PRIVATE cxx_std_14)
-  target_link_libraries(${TEST}.bin PRIVATE Catch2::Catch2WithMain)
-  target_link_libraries(${TEST}.bin PRIVATE vector)
-  add_test(NAME ${TEST}
-  		COMMAND ${TEST}.bin)
-endif()
-
-#### Individual unittests
-
-## Basics unittest
-set (TEST "test-vector")
-set (SRC_LIST "src/vector.cpp")
-
-add_executable(${TEST}.bin ${MAIN} ${SRC_LIST})
-target_compile_features(${TEST}.bin PRIVATE cxx_std_14)
-target_link_libraries(${TEST}.bin PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(${TEST}.bin PRIVATE vector)
-add_test(NAME ${TEST}
-		COMMAND ${TEST}.bin)
+foreach(SRC_FILE ${TEST_FILES})
+	get_filename_component(TEST ${SRC_FILE} NAME)
+	
+	add_executable(${TEST}.bin ${SRC_FILE})
+	target_compile_features(${TEST}.bin PRIVATE cxx_std_14)
+	target_link_libraries(${TEST}.bin PRIVATE Catch2::Catch2WithMain)
+  	target_link_libraries(${TEST}.bin PRIVATE vector)
+	add_test(NAME ${TEST}
+			COMMAND ${TEST}.bin)
+endforeach(SRC_FILE)

@@ -30,6 +30,8 @@ void			*vec_pushfront(void **root, size_t n, void *obj)
 		ft_memmove(&vec->mem[vec->front + 1], &vec->mem[vec->front],
 				(vec->size - 1) * sizeof(void *));
 		vec->mem[vec->front] = obj;
+		if (vec->size > 1)
+			vec->back++;
 	}
 	return (root);
 	(void)n;

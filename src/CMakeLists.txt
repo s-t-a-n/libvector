@@ -13,7 +13,7 @@ add_library(vector ${SRC_LIST} ${SRC_SUBROOT_LIST} ${HEADER_LIST})
 set_property(TARGET vector PROPERTY C_STANDARD 99)
 
 if (BUILD_TESTING)
-	target_compile_options(vector PRIVATE -Wall -Wextra -Werror -Wno-pedantic -g -fsanitize=address)
+	target_compile_options(vector PRIVATE -Wall -Wextra -Werror -Wno-pedantic -g -fsanitize=address -Og -fno-omit-frame-pointer)
 else()
 	target_compile_options(vector PRIVATE -Wall -Wextra -Werror -Wno-pedantic)
 

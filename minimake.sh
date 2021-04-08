@@ -17,19 +17,17 @@ elif [ $# -eq 1 ] && [ "$1" == "testOpt" ]; then
 elif [ $# -eq 1 ] && [ "$1" == "debug" ]; then
 	# compile with debugging flags
 	cmake -S . -B $build_dir -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Debug && ( cd $build_dir && make ) \
-	&& cp $build_dir/apps/minishell ./ \
-	&& cp $build_dir/src/libminishell.a ./ \
-	&& echo -e "You can run ./\e[92mminishell\e[39m now or include \e[92mlibminishell.a\e[39m in your library." \
+	&& cp $build_dir/src/libvector.a ./ \
+	&& echo -e "You can include \e[92mlibvector.a\e[39m in your library." \
 	|| { echo -e "Compilation ran: \e[91mNOPE\e[39m."; false; }
 elif [ $# -eq 1 ] && [ "$1" == "clean" ]; then
 	# clean all files which are specified in .gitignore 
 	git clean -d -f -X
 elif [ $# -eq 0 ]; then
-	# compile and copy minishell binary and lib to root folder
+	# compile and copy lib to root folder
 	cmake -S . -B $build_dir -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo && ( cd $build_dir && make ) \
-	&& cp $build_dir/apps/minishell ./ \
-	&& cp $build_dir/src/libminishell.a ./ \
-	&& echo -e "You can run ./\e[92mminishell\e[39m now or include \e[92mlibminishell.a\e[39m in your library." \
+	&& cp $build_dir/src/libvector.a ./ \
+	&& echo -e "You can include \e[92mlibvector.a\e[39m in your library." \
 	|| { echo -e "Compilation ran: \e[91mNOPE\e[39m."; false; }
 else
 	cat<<-EOF

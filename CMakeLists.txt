@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(
-	minishell
+	vector
 	VERSION 0.1
-	DESCRIPTION "As beautiful as a shell - 42 project"
+	DESCRIPTION "libvector - A vector library for C."
 	LANGUAGES C CXX)
 
 # CMakeLists.txt inspired by:

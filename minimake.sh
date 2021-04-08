@@ -34,9 +34,11 @@ elif [ $# -eq 0 ]; then
 else
 	cat<<-EOF
 	usage:
-	  $0       -> compile
-	  $0 test  -> compile and test
-	  $0 clean -> remove build files 
+	  $0         -> compile
+	  $0 debug   -> compile for debugging
+	  $0 test    -> compile for debugging and test
+	  $0 testOpt -> compile for debugging (with optimization flags) and test
+	  $0 clean   -> remove build files 
 	EOF
 fi
 

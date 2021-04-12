@@ -20,6 +20,7 @@ void			*vec_popfront(void **root, size_t n, void *obj)
 	if (vec->size > 0)
 	{
 		obj = vec->mem[vec->front];
+		vec->mem[vec->front] = NULL;
 		vec->front++;
 		vec->size--;
 		return (obj);

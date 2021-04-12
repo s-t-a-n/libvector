@@ -24,7 +24,8 @@ void			*vec_popat(void **root, size_t index, void *obj)
 		ft_memmove(&vec->mem[index], &vec->mem[index + 1],
 				(vec->size - index - 1) * sizeof(void *));
 		vec->mem[vec->back] = NULL;
-		vec->back--;
+		if (vec->back > 0)
+			vec->back--;
 		vec->size--;
 		return (obj);
 	}

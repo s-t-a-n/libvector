@@ -21,9 +21,12 @@ void			*vec_pushat(void **root, size_t index, void *obj)
 	t_vector	*vec;
 
 	vec = (t_vector *)*root;
-	if (index >= vec->front && index <= vec->back)
+	if (vec->front > 0 && index == 0)
+		return (vec_pushfront(root, index, obj));
+	else if (index <= vec->front + vec->back)
 	{
 		vec->size++;
+		index += vec->front;
 		if (vec->size >= vec->cap && !reallocate(vec, vec->cap, vec->cap * 2))
 			return (NULL);
 		ft_memmove(&vec->mem[index + 1], &vec->mem[index],

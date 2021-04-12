@@ -17,6 +17,11 @@ void			*vec_peekat(void **root, size_t index, void *obj)
 	t_vector	*vec;
 
 	vec = (t_vector *)*root;
-	return (index >= vec->front && index <= vec->back ? vec->mem[index] : NULL);
+	if (vec->size > 0 && index <= vec->front + vec->back)
+	{
+		index += vec->front;
+		return (vec->mem[index]);
+	}
+	return (NULL);
 	(void)obj;
 }

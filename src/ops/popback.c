@@ -21,6 +21,7 @@ void			*vec_popback(void **root, size_t n, void *obj)
 	if (vec->size > 0)
 	{
 		obj = vec->mem[vec->back];
+		vec->mem[vec->back] = NULL;
 		if (vec->back > 0)
 			vec->back--;
 		vec->size--;

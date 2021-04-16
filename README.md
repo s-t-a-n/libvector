@@ -124,6 +124,11 @@ Transform a vector:
 			return (1);
 		return (0);
 	}
+	void *obj;
+    if ((obj = vector(&root, V_TRANSFORM, 0, (void *) my_transform)) == NULL)
+		/* all elements were succesfully transformed */
+	else
+		/* obj will hold failed object */
 
 Clone vector:
 

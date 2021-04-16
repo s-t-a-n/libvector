@@ -116,6 +116,15 @@ Find object in vector:
 	/* to find the second object */
 	void *find_obj = vector(&root, V_FIND_NTH, 1, (void *)my_lookup);
 
+Transform a vector:
+
+	int my_transform(void **obj)
+	{
+		if (some_operation(*obj) == SUCCESS)
+			return (1);
+		return (0);
+	}
+
 Clone vector:
 
 	void *newroot;
@@ -171,6 +180,11 @@ I've tried to follow the STL vector API as much as feasible/possible.
 - V_FIND_NTH / V_FIND_NTH_REV expect as 'void *obj' a function pointer of
   the type 'int (*f)(void *obj)' which returns above zero if the object
   is a match.
+
+- V_TRANSFORM expect as 'void *obj' a function pointer of                    
+  the type 'int (*f)(void **obj)' which will be a ran on all vector elements.
+  If f() returns zero, vector() will return the object on which the          
+  transformation was attempted.
 
 - V_DESTROY takes the 'n' argument as boolean whether or not to call free()
   on it's members. Passing a function pointer as 'void (*f)(void *)' to 'obj'

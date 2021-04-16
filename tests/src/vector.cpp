@@ -568,6 +568,55 @@ TEST_CASE( "find_nth", "[vector]" )
 	}
 }
 
+static int transform_a(void **obj)
+{
+	char *str = (char *)*obj;
+	if (strcmp(str, "0") == 0)
+		return (0);
+	return (1);
+}
+
+static int transform_b(void **obj)
+{
+	free(*obj);
+	*obj = strdup("transform_b");
+	return (1);
+}
+
+TEST_CASE( "transform", "[vector]" )
+{
+	char			*str;
+	void			*root;
+	const size_t	max_size = TEST_SIZE;
+	const size_t	buflen = 1024;
+
+	for (size_t size = 1; size < max_size; size++)
+	{
+		REQUIRE(vector(&root, V_CREATE, size, NULL));
+
+		/* fill vector */
+		for (size_t i = 0; i < size; i++)
+		{
+			str = (char *)malloc(buflen);
+			snprintf(str, buflen, "%zu", i);
+			CHECK(vector(&root, V_PUSHBACK, 0, str));
+		}
+		CHECK(*(size_t *)vector(&root, V_SIZE, 0, NULL) == size);
+
+		/* check if V_TRANSFORM does indeed return object on tranform_f failure */
+		char *str = (char *)vector(&root, V_TRANSFORM, 0, (void *)transform_a);
+		CHECK(str != NULL);
+		CHECK(strcmp(str, "0") == 0);
+
+		/* check if V_TRANSFORM does indeed transform and return NULL on success*/
+		CHECK(vector(&root, V_TRANSFORM, 0, (void *)transform_b) == NULL);
+		for (size_t i = 0; i < size; i++)
+			CHECK(strcmp((char *)vector(&root, V_PEEKAT, i, NULL), "transform_b") == 0);
+		
+		CHECK(vector(&root, V_DESTROY, true, NULL) == NULL);
+	}
+}
+
 typedef struct
 {
 	void *mem;

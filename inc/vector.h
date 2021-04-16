@@ -45,6 +45,7 @@ typedef enum	e_ops
 	V_REPLACE,
 	V_FIND_NTH,
 	V_FIND_NTH_REV,
+	V_TRANSFORM,
 	V_SIZE,
 	E_OPS_END
 }				t_ops;
@@ -56,6 +57,11 @@ void	*vector(void **root, t_ops op, size_t n, void *obj);
 ** - V_FIND_NTH / V_FIND_NTH_REV expect as 'void *obj' a function pointer of
 **   the type 'int (*f)(void *obj)' which returns above zero if the object
 **   is a match.
+**
+** - V_TRANSFORM expect as 'void *obj' a function pointer of
+**   the type 'int (*f)(void **obj)' which will be a ran on all vector elements.
+**   If f() returns zero, vector() will return the object on which the
+**   transformation was attempted.
 **
 ** - V_SETFREEFUNC Passing a function pointer as 'void (*f)(void *)' to 'obj'
 **   will set that function as default destructor of elements.

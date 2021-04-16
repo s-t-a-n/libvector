@@ -36,6 +36,7 @@ t_jumpfunc		dispatch(t_ops op)
 		[V_REPLACE] = &vec_replace,
 		[V_FIND_NTH] = &vec_find_nth,
 		[V_FIND_NTH_REV] = &vec_find_nth_rev,
+		[V_TRANSFORM] = &vec_transform,
 		[V_SIZE] = &vec_size
 	};
 
